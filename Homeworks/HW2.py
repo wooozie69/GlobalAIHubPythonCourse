@@ -11,50 +11,53 @@ USR_DATABASE = {
         "test" : "1234"
     }
 
-def loginSys1():
-    print("--- Login System 1 ---")
-    
-    # Read username from user
-    usrname = input("\nEnter username: ")
-    if usrname == DEFAULT_USERNAME:
-        
-        # Now read password from user
-        password = input("Enter password: ")
-        
+def loginSys1(usrname, password):
+    if usrname == DEFAULT_USERNAME:    
         if password == DEFAULT_PASSWD:
-            print("Login Successfull!")
+            return True
         else:
-            print("Login Failed! Passwords doesn't match for this user!")
-
+            return False
     else:
-        print("Login Failed! This user doesn't exist!")
+        return False
 
 
-def loginSys2():
-    print("--- Login System 2 ---")
-    
+def loginSys2(usrname, password):
     # Flag to check if given username exists
     check = False
-    
-    # Read username from user
-    usrname = input("\nEnter username: ")
+
     for i in USR_DATABASE.keys():
-        
         if i == usrname:
             check = True
-            
-            # Read password from user
-            password = input("Enter password: ")
-            
+
             if USR_DATABASE[i] == password:
-                print("Login Successfull!")
+                return True
             else:
-                print("Login Failed! Passwords doesn't match for this user!")
-
+                return False
+            
     if check == False:
-        print("Login Failed! This user doesn't exist!")
+        return False
 
 
-loginSys1()
-print()
-loginSys2()
+def main():
+    # Test 1st login system
+    print("--- Login System 1 ---")
+    usrname = input("Enter username: ")
+    password = input("Enter password: ")
+    
+    if loginSys1(usrname, password) == True:
+        print("Login Successfull!\n")
+    else:
+        print("Login Failed! Username or password was incorrect\n")
+
+    # Test 2nd login system (With a dictionary)
+    print("--- Login System 2 ---")
+    usrname = input("Enter username: ")
+    password = input("Enter password: ")
+    
+    if loginSys2(usrname, password) == True:
+        print("Login Successfull!")
+    else:
+        print("Login Failed! Username or password was incorrect")
+    
+
+main()
